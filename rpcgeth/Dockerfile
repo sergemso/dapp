@@ -8,3 +8,8 @@ RUN \
   apk del .build-dependencies && \
   npm i truffle -g && \
   rm -rf /go-ethereum && rm -rf /var/cache/apk/*
+
+EXPOSE 8545
+EXPOSE 30303
+
+ENTRYPOINT ["/geth"]
