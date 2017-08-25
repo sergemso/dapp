@@ -1,4 +1,4 @@
-FROM docker:alpine
+FROM docker
 
 RUN \
   apk add --update openssh-client && \
