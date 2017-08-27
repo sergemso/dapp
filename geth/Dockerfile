@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM node:alpine
 
 RUN \
   apk add --update --virtual .build-dependencies go git make gcc musl-dev linux-headers ca-certificates && \
@@ -8,7 +8,6 @@ RUN \
   apk del .build-dependencies && \
   rm -rf /go-ethereum /var/cache/apk/*
 
-EXPOSE 80
 EXPOSE 30303
 
 ENTRYPOINT ["/geth"]
