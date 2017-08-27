@@ -6,10 +6,9 @@ RUN \
   (cd go-ethereum && make geth) && \
   cp go-ethereum/build/bin/geth /geth && \
   apk del .build-dependencies && \
-  rm -rf /go-ethereum && \
-  rm -rf /var/cache/apk/*
+  rm -rf /go-ethereum /var/cache/apk/*
 
-EXPOSE 8545
+EXPOSE 80
 EXPOSE 30303
 
 ENTRYPOINT ["/geth"]
