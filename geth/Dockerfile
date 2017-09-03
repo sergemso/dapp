@@ -1,12 +1,16 @@
 FROM node:alpine
 
 RUN \
-  apk add --update --virtual .build-dependencies go git make gcc musl-dev linux-headers ca-certificates && \
+  apk add --no-cache --update --virtual .build-dependencies build-base cmake boost-dev go git make gcc musl-dev linux-headers ca-certificates && \
+  sed -i -E -e 's/include <sys\/poll.h>/include <poll.h>/' /usr/include/boost/asio/detail/socket_types.hpp  && \
   git clone --depth 1 --branch release/1.6 https://github.com/ethereum/go-ethereum && \
+  git clone --depth 1 --recursive -b release https://github.com/ethereum/solidity && \
   (cd go-ethereum && make geth) && \
-  cp go-ethereum/build/bin/geth /geth && \
+  mv go-ethereum/build/bin/geth /geth && \
+  (cd /solidity && cmake -DCMAKE_BUILD_TYPE=Release -DTESTS=0 -DSTATIC_LINKING=1 && \
+  make solc && install -s solc/solc /usr/bin) && \
   apk del .build-dependencies && \
-  rm -rf /go-ethereum /var/cache/apk/*
+  rm -rf /go-ethereum /solidity /var/cache/apk/*
 
 EXPOSE 30303
 
