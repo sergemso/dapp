@@ -1,4 +1,4 @@
-FROM sergemso/dapp:geth-latest
+FROM sergemso/dapp-geth:latest
 
 RUN \
   apk --no-cache --update --virtual .build-dependencies add build-base cmake boost-dev git && \

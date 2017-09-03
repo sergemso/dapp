@@ -1,4 +1,4 @@
-FROM sergemso/dapp:geth-latest
+FROM sergemso/dapp-solidity:latest
 
 RUN \
   npm i truffle -g
